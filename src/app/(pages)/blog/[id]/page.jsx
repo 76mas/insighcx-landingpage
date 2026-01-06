@@ -11,7 +11,7 @@ export default function BlogDetail({ params }) {
   const { id } = use(params);
 
   return (
-    <div className="flex relative pt-[120px] pb-20 overflow-hidden min-h-screen items-center flex-col justify-between bg-gradient-to-r from-[#f6fffd] to-[#dfdfdf] font-sans">
+    <div className="flex relative pt-[120px]  overflow-hidden min-h-screen items-center flex-col justify-between bg-gradient-to-r from-[#f6fffd] to-[#dfdfdf] font-sans">
       <Container className="w-full">
         <div className="flex flex-col items-center justify-center w-full gap-12 lg:gap-16">
           {/* Header Section */}
