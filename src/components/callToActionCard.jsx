@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaAngleRight } from "react-icons/fa6";
 
 export default function CallToActionCard() {
@@ -16,10 +17,10 @@ export default function CallToActionCard() {
         <p className="text-[#31373D] text-sm md:text-[16px]">
           We can provide a Quality Research and Fieldwork!
         </p>
-        <button className="text-[#ffffff] flex items-center group gap-2 bg-[#000000] cursor-pointer px-5 py-3 rounded-full hover:bg-[#181717] transition-colors">
+        <Link href="/contact" className="text-[#ffffff] flex items-center group gap-2 bg-[#000000] cursor-pointer px-5 py-3 rounded-full hover:bg-[#181717] transition-colors">
           Get stated now
           <FaAngleRight className="ml-2 group-hover:ml-4 transition-all" />
-        </button>
+        </Link>
       </div>
     </div>
   );

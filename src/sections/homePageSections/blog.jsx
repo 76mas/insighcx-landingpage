@@ -55,7 +55,8 @@ export default function Blog() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
             {blogData.map((blog, index) => (
-              <div
+              <Link
+                href={`/blog/${index + 1}`}
                 key={index}
                 className="flex flex-col items-start justify-start gap-3 w-full group "
               >
@@ -74,7 +75,7 @@ export default function Blog() {
                     {cutString(blog.description, 80)}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
