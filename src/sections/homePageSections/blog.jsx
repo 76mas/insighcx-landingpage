@@ -1,4 +1,5 @@
 import { Container } from "@/components/container";
+import Link from "next/link";
 
 export default function Blog() {
   const blogData = [
@@ -46,9 +47,9 @@ export default function Blog() {
             </div>
 
             <div className="flex items-center justify-center">
-              <button className="text-[#1D1E20] font-bold p-2 text-center text-[11.5px] px-4 cursor-pointer text-uppercase rounded-full bg-[#F5F5F5] hover:bg-gray-200 transition-colors">
+              <Link href="/blog" className="text-[#1D1E20] font-bold p-2 text-center text-[11.5px] px-4 cursor-pointer text-uppercase rounded-full bg-[#F5F5F5] hover:bg-gray-200 transition-colors">
                 Browse All
-              </button>
+              </Link>
             </div>
           </div>
 
