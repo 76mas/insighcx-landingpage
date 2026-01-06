@@ -51,7 +51,7 @@ export default function Service() {
             </div>
             {/* card */}
 
-            <div className="group flex flex-col items-start justify-between gap-4 rounded-[24px] border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-[#008867]/20 w-full max-w-sm min-h-[280px]">
+            <div className="group z-10 flex flex-col items-start justify-between gap-4 rounded-[24px] border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-[#008867]/20 w-full max-w-sm min-h-[280px]">
               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#effaf6] transition-all duration-300 group-hover:bg-[#008867] group-hover:scale-110">
                 <img
                   src="/image/s1.svg"
@@ -77,7 +77,7 @@ export default function Service() {
             {cardData.map((service, index) => (
               <div
                 key={index}
-                className="group flex flex-col items-start justify-between gap-1 rounded-[24px] border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-[#008867]/20 w-full max-w-sm min-h-[280px]"
+                className="group flex z-10 flex-col items-start justify-between gap-1 rounded-[24px] border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-[#008867]/20 w-full max-w-sm min-h-[280px]"
               >
                 <div className="flex items-start gap-10 flex-col">
                   <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#effaf6] transition-all duration-300 group-hover:bg-[#008867] group-hover:scale-110">
