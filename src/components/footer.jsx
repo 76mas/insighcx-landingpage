@@ -3,9 +3,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa6";
 
-const Footer = () => {
+const Footer = ({ className }) => {
   return (
-    <footer className="w-full flex flex-col items-center justify-center">
+    <footer className={`w-full flex flex-col items-center justify-center ${className}`}>
       <Container>
         <div className="grid w-full  grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 items-start justify-between pt-10 border-t border-gray-100/50">
           {/* Column 1: Brand & Social */}

@@ -1,3 +1,4 @@
+import CallToActionCard from "@/components/callToActionCard";
 import { Container } from "@/components/container";
 import Footer from "@/components/footer";
 import Image from "next/image";
@@ -18,7 +19,7 @@ const Bottom = () => {
       <Container>
         <div className="flex flex-col gap-20 mb-20 w-full">
           {/* Call to Action Card */}
-          <div className="flex flex-col items-center justify-center shadow-[0px_0px_20px_0px_rgba(0,0,0,0.10)] bg-[#F5F5F5] w-full h-[450px] rounded-[24px]">
+          {/* <div className="flex flex-col items-center justify-center shadow-[0px_0px_20px_0px_rgba(0,0,0,0.10)] bg-[#F5F5F5] w-full h-[450px] rounded-[24px]">
             <div className="flex flex-col items-center gap-8">
               <div className="flex flex-col items-center gap-2">
                 <h2 className="text-[#1D1E20] font-bold text-center text-3xl md:text-[44px]">
@@ -37,7 +38,8 @@ const Bottom = () => {
                 <FaAngleRight className="ml-2 group-hover:ml-4 transition-all" />
               </button>
             </div>
-          </div>
+          </div> */}
+          <CallToActionCard />
 
           {/* Footer Section */}
         </div>
