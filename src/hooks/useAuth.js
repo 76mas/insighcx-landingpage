@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import { useRouter } from "next/navigation";
 import {
   loginAdmin,
@@ -8,7 +8,9 @@ import {
   verifyAdminSession,
 } from "@/app/dashboard/actions/auth.action";
 
-export function useAuth() {
+const AuthContext = createContext();
+
+export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [admin, setAdmin] = useState(null);
@@ -44,7 +46,7 @@ export function useAuth() {
         setAdmin(result.admin);
         return { success: true };
       }
-      return { success: false, error: result.error };
+      return { success: false, error: result.error || "Login failed" };
     } catch (error) {
       return { success: false, error: "An unexpected error occurred" };
     }
@@ -61,7 +63,7 @@ export function useAuth() {
     return admin?.name || "Admin";
   };
 
-  return {
+  const value = {
     isAuthenticated,
     isLoading,
     login,
@@ -70,4 +72,14 @@ export function useAuth() {
     admin,
     refreshAuth: checkAuth,
   };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
+
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
 }

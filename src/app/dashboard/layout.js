@@ -12,12 +12,12 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
 } from "@ant-design/icons";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth, AuthProvider } from "@/hooks/useAuth";
 import "antd/dist/reset.css";
 
 const { Header, Sider, Content } = Layout;
 
-export default function DashboardLayout({ children }) {
+function DashboardLayoutContent({ children }) {
   const [collapsed, setCollapsed] = useState(false);
   const { isAuthenticated, isLoading, logout, getAdminName } = useAuth();
   const router = useRouter();
@@ -35,8 +35,24 @@ export default function DashboardLayout({ children }) {
     return <>{children}</>;
   }
 
-  // Show loading or redirect
-  if (isLoading || !isAuthenticated) {
+  // Show loading or redirect (prevents flashing content)
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          background: "#f0f2f5",
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
     return null;
   }
 
@@ -167,5 +183,13 @@ export default function DashboardLayout({ children }) {
         </Content>
       </Layout>
     </Layout>
+  );
+}
+
+export default function DashboardLayout({ children }) {
+  return (
+    <AuthProvider>
+      <DashboardLayoutContent>{children}</DashboardLayoutContent>
+    </AuthProvider>
   );
 }
