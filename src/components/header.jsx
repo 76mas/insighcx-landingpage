@@ -1,14 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Container } from "./container";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 
-
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [display, setDisplay] = useState(true);
   const pathname = usePathname();
 
   // Prevent scrolling when menu is open
@@ -20,6 +21,19 @@ export default function Header() {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (
+      pathname === "/dashboard/login" ||
+      pathname === "/dashboard" ||
+      pathname === "/dashboard/blogs" ||
+      pathname === "/dashboard/massge"
+    ) {
+      setDisplay(false);
+    } else {
+      setDisplay(true);
+    }
+  }, [pathname]);
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Services", href: "/services" },
@@ -29,7 +43,10 @@ export default function Header() {
   const primaryColor = "#00897b"; // Teal color from design
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50    flex justify-center  ">
+    <header
+      style={{ display: display ? "flex" : "none" }}
+      className="fixed top-0 left-0 w-full z-50    flex justify-center  "
+    >
       <Container>
         <div className="relative z-50 flex items-center justify-between py-2 md:py-3">
           {/* Logo */}
@@ -42,7 +59,6 @@ export default function Header() {
               priority
             />
           </Link>
-     
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-29">

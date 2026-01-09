@@ -23,16 +23,16 @@ export default function WhyChoose() {
               {/* <span className="text-4xl z-10 md:text-[50px] font-bold text-[#008867] leading-tight">
                 insightx
               </span> */}
-                 <GradientText
-                                colors={["#008867", "#FFD6D6", "#008867"]}
-                                animationSpeed={8}
-                                direction="horizontal"
-                                pauseOnHover={false}
-                                yoyo={true}
-                                className="text-3xl md:text-5xl font-bold z-40 px-2 py-1 bg-transparent"
-                              >
-                                insightx
-                              </GradientText>
+              <GradientText
+                colors={["#008867", "#FFD6D6", "#008867"]}
+                animationSpeed={8}
+                direction="horizontal"
+                pauseOnHover={false}
+                yoyo={true}
+                className="text-3xl md:text-5xl font-bold z-40 px-2 py-1 bg-transparent"
+              >
+                insightx
+              </GradientText>
             </div>
 
             <div className="flex flex-col gap-6 z-10">
@@ -55,7 +55,9 @@ export default function WhyChoose() {
                       />
                     </svg>
                   </div>
-                  <p className="text-[#31373D] text-lg z-10 font-medium">{point}</p>
+                  <p className="text-[#31373D] text-lg z-10 font-medium">
+                    {point}
+                  </p>
                 </div>
               ))}
             </div>
@@ -63,12 +65,13 @@ export default function WhyChoose() {
 
           {/* Right Image */}
           <div className="w-full lg:w-1/2 relative rounded-[32px] overflow-hidden">
-            <div className="relative w-full h-[400px] lg:h-[500px]">
+            <div className="relative overflow-hidden w-full h-[400px] lg:h-[500px]">
               <img
-                src="/image/service.png"
+                src="/image/service.jpg"
                 alt="Why Choose Us"
                 className="w-full h-full object-cover"
               />
+              <div className="absolute inset-0 bg-gradient-to-br from-[#008867] to-[#FFD6D6] opacity-50 z-0"></div>
             </div>
           </div>
         </div>

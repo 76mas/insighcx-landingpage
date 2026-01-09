@@ -71,9 +71,7 @@ export default function WorkStep() {
                 return (
                   <div
                     key={index}
-                    className={`flex flex-col ${
-                      index === 0 ? "bg-[#F5F5F5]" : "bg-white"
-                    } rounded-2xl p-6 items-start justify-center gap-2 shadow-sm`}
+                    className={`flex flex-col bg-white hover:bg-[#F5F5F5] transition-all duration-300 rounded-2xl p-6 items-start justify-center gap-2 shadow-sm`}
                   >
                     <div className="flex items-center justify-start gap-2">
                       <div className="w-[30px] fontcange h-[30px] rounded-full flex items-center justify-center bg-gradient-to-b from-[#008867] to-[#9bebd7]  text-white">

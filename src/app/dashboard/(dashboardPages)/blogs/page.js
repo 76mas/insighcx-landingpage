@@ -1,0 +1,418 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import {
+  Table,
+  Button,
+  Tag,
+  Image,
+  Space,
+  Modal,
+  Form,
+  Input,
+  message,
+  Popconfirm,
+} from "antd";
+import {
+  PlusOutlined,
+  EyeOutlined,
+  DeleteOutlined,
+  FolderOutlined,
+  MinusCircleOutlined,
+  EditOutlined,
+  ReloadOutlined,
+} from "@ant-design/icons";
+import { useRouter } from "next/navigation";
+import {
+  getAllBlogs,
+  addBlog,
+  updateBlog,
+  deleteBlog,
+} from "../../actions/blog.action";
+
+export default function BlogsPage() {
+  const router = useRouter();
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [total, setTotal] = useState(0);
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editingBlog, setEditingBlog] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    fetchBlogs();
+  }, [pagination.current, pagination.pageSize]);
+
+  const fetchBlogs = async () => {
+    setLoading(true);
+    try {
+      const result = await getAllBlogs({
+        page: pagination.current,
+        limit: pagination.pageSize,
+      });
+      if (result.success) {
+        setBlogs(result.blogs);
+        setTotal(result.total);
+      } else {
+        message.error(result.error || "Failed to fetch blogs");
+      }
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+      message.error("An unexpected error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleTableChange = (newPagination) => {
+    setPagination(newPagination);
+  };
+
+  // Handle Add Blog
+  const handleAddBlog = async (values) => {
+    setSubmitting(true);
+    try {
+      const result = await addBlog(values);
+      if (result.success) {
+        message.success("Blog added successfully!");
+        setIsModalVisible(false);
+        form.resetFields();
+        fetchBlogs();
+      } else {
+        message.error(result.error || "Failed to add blog");
+      }
+    } catch (error) {
+      message.error("An error occurred while adding the blog");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // Handle Edit Blog
+  const handleEditBlog = async (values) => {
+    setSubmitting(true);
+    try {
+      const result = await updateBlog(editingBlog.id, values);
+      if (result.success) {
+        message.success("Blog updated successfully!");
+        setIsModalVisible(false);
+        setIsEditMode(false);
+        setEditingBlog(null);
+        form.resetFields();
+        fetchBlogs();
+      } else {
+        message.error(result.error || "Failed to update blog");
+      }
+    } catch (error) {
+      message.error("An error occurred while updating the blog");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // Open Edit Modal
+  const openEditModal = (blog) => {
+    setEditingBlog(blog);
+    setIsEditMode(true);
+    setIsModalVisible(true);
+    form.setFieldsValue({
+      mainTitle: blog.mainTitle,
+      category: blog.category,
+      imageUrl: blog.imageUrl,
+      secondaryTitle: blog.secondaryTitle,
+      paragraphs: blog.paragraphs,
+    });
+  };
+
+  // Handle Delete Blog
+  const handleDelete = async (id) => {
+    try {
+      const result = await deleteBlog(id);
+      if (result.success) {
+        message.success("Blog deleted successfully!");
+        fetchBlogs();
+      } else {
+        message.error(result.error || "Failed to delete blog");
+      }
+    } catch (error) {
+      message.error("An error occurred while deleting the blog");
+    }
+  };
+
+  const columns = [
+    {
+      title: "Image",
+      dataIndex: "imageUrl",
+      key: "imageUrl",
+      width: 100,
+      render: (imageUrl) => (
+        <Image
+          src={imageUrl}
+          alt="Blog thumbnail"
+          width={60}
+          height={60}
+          style={{ objectFit: "cover", borderRadius: "4px" }}
+          fallback="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
+        />
+      ),
+    },
+    {
+      title: "Main Title",
+      dataIndex: "mainTitle",
+      key: "mainTitle",
+      width: 250,
+      render: (text) => <strong>{text}</strong>,
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
+      width: 120,
+      render: (category) => (
+        <Tag color="blue" icon={<FolderOutlined />}>
+          {category}
+        </Tag>
+      ),
+    },
+    {
+      title: "Created Date",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      width: 130,
+      render: (date) => new Date(date).toLocaleDateString(),
+    },
+    {
+      title: "Actions",
+      key: "actions",
+      width: 150,
+      render: (_, record) => (
+        <Space>
+          <Popconfirm
+            title="Delete Blog"
+            description="Are you sure you want to delete this blog?"
+            onConfirm={() => handleDelete(record.id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button danger size="small" icon={<DeleteOutlined />} />
+          </Popconfirm>
+          <Button
+            type="default"
+            size="small"
+            icon={<EditOutlined />}
+            onClick={() => openEditModal(record)}
+          />
+        </Space>
+      ),
+    },
+  ];
+
+  return (
+    <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "24px",
+        }}
+      >
+        <h1 style={{ fontSize: "24px", fontWeight: "bold", margin: 0 }}>
+          Blogs Management
+        </h1>
+        <Space>
+          <Button
+            icon={<ReloadOutlined />}
+            onClick={fetchBlogs}
+            loading={loading}
+          >
+            Refresh
+          </Button>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            size="large"
+            onClick={() => setIsModalVisible(true)}
+          >
+            Add Blog
+          </Button>
+        </Space>
+      </div>
+
+      <Table
+        columns={columns}
+        dataSource={blogs}
+        rowKey="id"
+        loading={loading}
+        pagination={{
+          ...pagination,
+          total: total,
+          showSizeChanger: true,
+          showTotal: (total) => `Total ${total} blogs`,
+        }}
+        onChange={handleTableChange}
+      />
+
+      {/* Add/Edit Blog Modal */}
+      <Modal
+        title={isEditMode ? "Edit Blog" : "Add New Blog"}
+        open={isModalVisible}
+        onCancel={() => {
+          if (!submitting) {
+            setIsModalVisible(false);
+            setIsEditMode(false);
+            setEditingBlog(null);
+            form.resetFields();
+          }
+        }}
+        footer={null}
+        width={700}
+        maskClosable={!submitting}
+        closable={!submitting}
+      >
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={isEditMode ? handleEditBlog : handleAddBlog}
+          disabled={submitting}
+        >
+          <Form.Item
+            name="mainTitle"
+            label="Main Title"
+            rules={[{ required: true, message: "Please enter the main title" }]}
+          >
+            <Input placeholder="Enter blog main title" />
+          </Form.Item>
+
+          <Form.Item
+            name="category"
+            label="Category"
+            rules={[{ required: true, message: "Please enter the category" }]}
+          >
+            <Input placeholder="e.g., Real Estate, Guides, Investment" />
+          </Form.Item>
+
+          <Form.Item
+            name="imageUrl"
+            label="Image URL"
+            rules={[{ required: true, message: "Please enter the image URL" }]}
+          >
+            <Input placeholder="Enter image URL" />
+          </Form.Item>
+
+          {/* Dynamic Secondary Titles */}
+          <Form.List name="secondaryTitle">
+            {(fields, { add, remove }) => (
+              <>
+                <div style={{ marginBottom: "8px", fontWeight: 500 }}>
+                  Secondary Titles
+                </div>
+                {fields.map(({ key, name, ...restField }) => (
+                  <Space
+                    key={key}
+                    style={{ display: "flex", marginBottom: 8 }}
+                    align="baseline"
+                  >
+                    <Form.Item
+                      {...restField}
+                      name={name}
+                      rules={[
+                        {
+                          required: true,
+                          message: "Please enter secondary title",
+                        },
+                      ]}
+                      style={{ marginBottom: 0, flex: 1 }}
+                    >
+                      <Input
+                        placeholder="Secondary title"
+                        style={{ width: "550px" }}
+                      />
+                    </Form.Item>
+                    <MinusCircleOutlined onClick={() => remove(name)} />
+                  </Space>
+                ))}
+                <Form.Item>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    block
+                    icon={<PlusOutlined />}
+                  >
+                    Add Secondary Title
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
+
+          {/* Dynamic Paragraphs */}
+          <Form.List name="paragraphs">
+            {(fields, { add, remove }) => (
+              <>
+                <div style={{ marginBottom: "8px", fontWeight: 500 }}>
+                  Paragraphs
+                </div>
+                {fields.map(({ key, name, ...restField }) => (
+                  <Space
+                    key={key}
+                    style={{ display: "flex", marginBottom: 8 }}
+                    align="baseline"
+                  >
+                    <Form.Item
+                      {...restField}
+                      name={name}
+                      rules={[
+                        { required: true, message: "Please enter paragraph" },
+                      ]}
+                      style={{ marginBottom: 0, flex: 1 }}
+                    >
+                      <Input.TextArea
+                        placeholder="Paragraph content"
+                        rows={2}
+                        style={{ width: "550px" }}
+                      />
+                    </Form.Item>
+                    <MinusCircleOutlined onClick={() => remove(name)} />
+                  </Space>
+                ))}
+                <Form.Item>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    block
+                    icon={<PlusOutlined />}
+                  >
+                    Add Paragraph
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
+
+          <Form.Item style={{ marginTop: "24px", marginBottom: 0 }}>
+            <Space>
+              <Button type="primary" htmlType="submit" loading={submitting}>
+                {isEditMode ? "Update Blog" : "Add Blog"}
+              </Button>
+              <Button
+                disabled={submitting}
+                onClick={() => {
+                  setIsModalVisible(false);
+                  setIsEditMode(false);
+                  setEditingBlog(null);
+                  form.resetFields();
+                }}
+              >
+                Cancel
+              </Button>
+            </Space>
+          </Form.Item>
+        </Form>
+      </Modal>
+    </div>
+  );
+}

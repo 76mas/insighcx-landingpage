@@ -5,7 +5,54 @@ import { motion } from "motion/react";
 import Footer from "@/components/footer";
 import { FaArrowRight } from "react-icons/fa6";
 
+import { useState } from "react";
+import { addMessage } from "../../dashboard/actions/massage.action";
+import { message as antMessage } from "antd";
+
 export default function Contact() {
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) {
+      antMessage.warning("Please fill in all required fields.");
+      return;
+    }
+
+    setLoading(true);
+    const hide = antMessage.loading("Sending your message...", 0);
+
+    try {
+      const result = await addMessage(formData);
+      hide();
+      if (result.success) {
+        antMessage.success("Thank you! Your message has been sent.");
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        antMessage.error(
+          result.error || "Failed to send message. Please try again."
+        );
+      }
+    } catch (error) {
+      hide();
+      console.error("Contact form error:", error);
+      antMessage.error("An unexpected error occurred. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex relative pt-[120px] overflow-hidden min-h-screen items-center flex-col justify-between bg-gradient-to-r from-[#f6fffd] to-[#dfdfdf] font-sans">
       <Container className="mb-20 w-full">
@@ -40,6 +87,7 @@ export default function Contact() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             className="w-full flex flex-col gap-12"
+            onSubmit={handleSubmit}
           >
             {/* Top Row inputs */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 w-full">
@@ -49,6 +97,10 @@ export default function Contact() {
                 </label>
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
                   className="w-full bg-transparent border-b border-[#CCCCCC] py-2 focus:outline-none focus:border-[#008867] transition-colors"
                 />
               </div>
@@ -58,6 +110,10 @@ export default function Contact() {
                 </label>
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
                   className="w-full bg-transparent border-b border-[#CCCCCC] py-2 focus:outline-none focus:border-[#008867] transition-colors"
                 />
               </div>
@@ -67,6 +123,9 @@ export default function Contact() {
                 </label>
                 <input
                   type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   className="w-full bg-transparent border-b border-[#CCCCCC] py-2 focus:outline-none focus:border-[#008867] transition-colors"
                 />
               </div>
@@ -79,6 +138,10 @@ export default function Contact() {
               </label>
               <textarea
                 rows={1}
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
                 className="w-full bg-transparent border-b border-[#CCCCCC] py-2 focus:outline-none focus:border-[#008867] transition-colors resize-none"
               />
             </div>
@@ -86,10 +149,13 @@ export default function Contact() {
             <div>
               <button
                 type="submit"
-                className="flex items-center gap-2 bg-[#008867] text-white px-8 py-4 rounded-full font-medium hover:bg-[#007a5c] transition-colors group"
+                disabled={loading}
+                className="flex items-center gap-2 bg-[#008867] text-white px-8 py-4 rounded-full font-medium hover:bg-[#007a5c] transition-colors group disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Leave us a Message
-                <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                {loading ? "Sending..." : "Leave us a Message"}
+                {!loading && (
+                  <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                )}
               </button>
             </div>
           </motion.form>
@@ -125,7 +191,7 @@ export default function Contact() {
                     Email Address
                     <div className="w-8 h-[2px] mt-2 bg-black"></div>
                   </h3>
-                  
+
                   <div className="flex flex-col gap-2">
                     <p className="text-lg font-bold text-[#1D1E20]">
                       team@insightx.info

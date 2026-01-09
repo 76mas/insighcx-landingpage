@@ -1,11 +1,18 @@
 import { Container } from "./container";
 import Link from "next/link";
 import Image from "next/image";
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa6";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+  FaInstagram,
+} from "react-icons/fa6";
 
 const Footer = ({ className }) => {
   return (
-    <footer className={`w-full flex flex-col items-center justify-center ${className}`}>
+    <footer
+      className={`w-full flex flex-col items-center justify-center ${className}`}
+    >
       <Container>
         <div className="grid w-full  grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 items-start justify-between pt-10 border-t border-gray-100/50">
           {/* Column 1: Brand & Social */}
@@ -51,10 +58,11 @@ const Footer = ({ className }) => {
           <div className="flex w-full flex-col items-start gap-6 lg:pl-10">
             <h3 className="text-[#1D1E20] font-bold text-lg uppercase">Saas</h3>
             <a
-              href="#"
+              href="https://insightcx.app/"
+              target="_blank"
               className="text-[#31373D] hover:text-[#008867] transition-colors underline decoration-1 underline-offset-4"
             >
-              InsighCX
+              InsightCX
             </a>
           </div>
 

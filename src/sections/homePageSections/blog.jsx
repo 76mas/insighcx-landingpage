@@ -47,7 +47,7 @@ export default function Blog() {
             </div>
 
             <div className="flex items-center justify-center">
-              <Link href="/blog" className="text-[#1D1E20] font-bold p-2 text-center text-[11.5px] px-4 cursor-pointer text-uppercase rounded-full bg-[#F5F5F5] hover:bg-gray-200 transition-colors">
+              <Link href="/blog" className="text-[#1D1E20] font-bold p-2 text-center text-[13px] px-6 cursor-pointer text-uppercase rounded-full bg-[#F5F5F5] hover:bg-gray-200 transition-colors">
                 Browse All
               </Link>
             </div>

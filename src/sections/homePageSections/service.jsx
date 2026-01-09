@@ -30,7 +30,7 @@ export default function Service() {
         <div className="flex flex-col w-full items-center justify-center gap-16">
           <div className="w-full flex flex-wrap items-center justify-center lg:justify-between gap-10">
             <div className="flex flex-col h-full items-center lg:items-start justify-center gap-5 max-w-xl text-center lg:text-left">
-              <h2 className="flex flex-wrap justify-center lg:justify-start text-3xl md:text-5xl z-40 items-center text-[#1D1E20] gap-x-2">
+              <h2 className="flex flex-wrap font-bold justify-center lg:justify-start text-3xl md:text-5xl z-40 items-center text-[#1D1E20] gap-x-2">
                 Explore Our
                 <GradientText
                   colors={["#008867", "#FFD6D6", "#008867"]}
@@ -38,7 +38,7 @@ export default function Service() {
                   direction="horizontal"
                   pauseOnHover={false}
                   yoyo={true}
-                  className="text-3xl md:text-5xl font-bold z-40 px-2 py-1 bg-transparent"
+                  className="text-3xl  md:text-5xl font-bold z-40 px-2 py-1 bg-transparent"
                 >
                   Services
                 </GradientText>
