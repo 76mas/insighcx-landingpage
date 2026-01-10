@@ -63,11 +63,25 @@ export const fakeBlogs = [
     mainTitle: "Baghdad Real Estate Market",
     category: "Real Estate",
     imageUrl: "/images/blog1.jpg",
-    secondaryTitle: ["Market Growth", "High Demand Areas", "Investment Tips"],
-    paragraphs: [
-      "Property prices have increased in several key areas.",
-      "Locations close to services are more attractive.",
-      "Investors should study the market carefully before buying.",
+    content: [
+      { words: "Market Growth", type: "title", priority: 1 },
+      {
+        words: "Property prices have increased in several key areas.",
+        type: "paragraph",
+        priority: 2,
+      },
+      { words: "High Demand Areas", type: "title", priority: 3 },
+      {
+        words: "Locations close to services are more attractive.",
+        type: "paragraph",
+        priority: 4,
+      },
+      { words: "Investment Tips", type: "title", priority: 5 },
+      {
+        words: "Investors should study the market carefully before buying.",
+        type: "paragraph",
+        priority: 6,
+      },
     ],
     createdAt: "2025-01-02T09:00:00Z",
     updatedAt: "2025-01-04T15:00:00Z",
@@ -77,11 +91,25 @@ export const fakeBlogs = [
     mainTitle: "How to Choose the Right Home",
     category: "Guides",
     imageUrl: "/images/blog2.jpg",
-    secondaryTitle: ["Location", "Space", "Nearby Services"],
-    paragraphs: [
-      "Location is essential for family comfort.",
-      "The house size should match family needs.",
-      "Nearby schools and hospitals add value.",
+    content: [
+      { words: "Location", type: "title", priority: 1 },
+      {
+        words: "Location is essential for family comfort.",
+        type: "paragraph",
+        priority: 2,
+      },
+      { words: "Space", type: "title", priority: 3 },
+      {
+        words: "The house size should match family needs.",
+        type: "paragraph",
+        priority: 4,
+      },
+      { words: "Nearby Services", type: "title", priority: 5 },
+      {
+        words: "Nearby schools and hospitals add value.",
+        type: "paragraph",
+        priority: 6,
+      },
     ],
     createdAt: "2025-01-03T11:30:00Z",
     updatedAt: "2025-01-03T11:30:00Z",
@@ -91,15 +119,25 @@ export const fakeBlogs = [
     mainTitle: "Investment Opportunities in Iraq",
     category: "Investment",
     imageUrl: "/images/blog3.jpg",
-    secondaryTitle: [
-      "Growing Economy",
-      "Government Support",
-      "Strategic Locations",
-    ],
-    paragraphs: [
-      "The Iraqi economy is showing positive growth trends.",
-      "Government initiatives are supporting foreign investments.",
-      "Key cities offer strategic advantages for investors.",
+    content: [
+      { words: "Growing Economy", type: "title", priority: 1 },
+      {
+        words: "The Iraqi economy is showing positive growth trends.",
+        type: "paragraph",
+        priority: 2,
+      },
+      { words: "Government Support", type: "title", priority: 3 },
+      {
+        words: "Government initiatives are supporting foreign investments.",
+        type: "paragraph",
+        priority: 4,
+      },
+      { words: "Strategic Locations", type: "title", priority: 5 },
+      {
+        words: "Key cities offer strategic advantages for investors.",
+        type: "paragraph",
+        priority: 6,
+      },
     ],
     createdAt: "2025-01-01T08:00:00Z",
     updatedAt: "2025-01-02T12:00:00Z",
@@ -109,11 +147,25 @@ export const fakeBlogs = [
     mainTitle: "Modern Apartment Living",
     category: "Lifestyle",
     imageUrl: "/images/blog4.jpg",
-    secondaryTitle: ["Amenities", "Security", "Community"],
-    paragraphs: [
-      "New developments include state-of-the-art amenities.",
-      "24/7 security ensures peace of mind for residents.",
-      "Community spaces foster social connections.",
+    content: [
+      { words: "Amenities", type: "title", priority: 1 },
+      {
+        words: "New developments include state-of-the-art amenities.",
+        type: "paragraph",
+        priority: 2,
+      },
+      { words: "Security", type: "title", priority: 3 },
+      {
+        words: "24/7 security ensures peace of mind for residents.",
+        type: "paragraph",
+        priority: 4,
+      },
+      { words: "Community", type: "title", priority: 5 },
+      {
+        words: "Community spaces foster social connections.",
+        type: "paragraph",
+        priority: 6,
+      },
     ],
     createdAt: "2024-12-28T14:20:00Z",
     updatedAt: "2024-12-30T10:00:00Z",

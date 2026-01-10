@@ -2,7 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Layout, Menu, Button, Avatar, Dropdown } from "antd";
+import {
+  Layout,
+  Menu,
+  Button,
+  Avatar,
+  Dropdown,
+  ConfigProvider,
+  theme,
+} from "antd";
 import {
   DashboardOutlined,
   FileTextOutlined,
@@ -44,7 +52,8 @@ function DashboardLayoutContent({ children }) {
           justifyContent: "center",
           alignItems: "center",
           height: "100vh",
-          background: "#f0f2f5",
+          background: "#141414",
+          color: "rgba(255, 255, 255, 0.85)",
         }}
       >
         Loading...
@@ -141,11 +150,11 @@ function DashboardLayoutContent({ children }) {
         <Header
           style={{
             padding: "0 24px",
-            background: "#fff",
+            background: "transparent",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
           }}
         >
           <Button
@@ -176,7 +185,7 @@ function DashboardLayoutContent({ children }) {
             margin: "24px 16px",
             padding: 24,
             minHeight: 280,
-            background: "#f0f2f5",
+            background: "transparent",
           }}
         >
           {children}
@@ -188,8 +197,17 @@ function DashboardLayoutContent({ children }) {
 
 export default function DashboardLayout({ children }) {
   return (
-    <AuthProvider>
-      <DashboardLayoutContent>{children}</DashboardLayoutContent>
-    </AuthProvider>
+    <ConfigProvider
+      theme={{
+        algorithm: theme.darkAlgorithm,
+        token: {
+          colorPrimary: "#1677ff",
+        },
+      }}
+    >
+      <AuthProvider>
+        <DashboardLayoutContent>{children}</DashboardLayoutContent>
+      </AuthProvider>
+    </ConfigProvider>
   );
 }

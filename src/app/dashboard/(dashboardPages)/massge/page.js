@@ -311,9 +311,10 @@ export default function MessagesPage() {
                 style={{
                   marginTop: "8px",
                   padding: "12px",
-                  background: "#f5f5f5",
                   borderRadius: "4px",
                   lineHeight: "1.6",
+                  backgroundColor: "#424242",
+                  color: "#fff",
                 }}
               >
                 {selectedMessage.message}

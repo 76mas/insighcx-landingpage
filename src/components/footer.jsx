@@ -2,10 +2,10 @@ import { Container } from "./container";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  FaFacebookF,
-  FaTwitter,
-  FaLinkedinIn,
   FaInstagram,
+  FaXTwitter,
+  FaLinkedinIn,
+  FaTelegram,
 } from "react-icons/fa6";
 
 const Footer = ({ className }) => {
@@ -23,7 +23,7 @@ const Footer = ({ className }) => {
                   src="/image/logo.svg"
                   alt="InsightX Logo"
                   fill
-                  className="object-contain  object-left"
+                  className="object-contain object-left"
                   priority
                 />
               </div>
@@ -39,16 +39,16 @@ const Footer = ({ className }) => {
               </h3>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer">
-                  <FaFacebookF size={18} />
+                  <FaInstagram size={18} />
                 </div>
                 <div className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer">
-                  <FaTwitter size={18} />
+                  <FaXTwitter size={18} />
                 </div>
                 <div className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer">
                   <FaLinkedinIn size={18} />
                 </div>
                 <div className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer">
-                  <FaInstagram size={18} />
+                  <FaTelegram size={18} />
                 </div>
               </div>
             </div>

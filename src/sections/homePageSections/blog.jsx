@@ -1,29 +1,32 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { Container } from "@/components/container";
 import Link from "next/link";
+import { getAllBlogs } from "@/app/dashboard/actions/blog.action";
 
 export default function Blog() {
-  const blogData = [
-    {
-      iamge: "/image/blog.png",
-      title: "Introducing the Webflow Boosters App",
-      description:
-        "Advanced code solutions added directly inside ofvWebflow at the click of a button.",
-    },
-    {
-      iamge: "/image/blog.png",
-      title: "Top 20 UI Inspiration Sites (2023)",
-      description:
-        "We've collated the top 20 UI inspiration sites, all with links in one handy spot! Find your inspiration for your next project.",
-    },
-    {
-      iamge: "/image/blog.png",
-      title: "How to add a countdown timer to Framer",
-      description:
-        "Learn how to add a beautiful countdown to your Framer project. Add it to your project in seconds",
-    },
-  ];
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTopBlogs = async () => {
+      try {
+        const result = await getAllBlogs({ page: 1, limit: 3 });
+        if (result.success) {
+          setBlogs(result.blogs);
+        }
+      } catch (error) {
+        console.error("Error fetching top blogs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTopBlogs();
+  }, []);
 
   const cutString = (string, length) => {
+    if (!string) return "";
     if (string.length > length) {
       return string.substring(0, length) + "...";
     }
@@ -47,37 +50,61 @@ export default function Blog() {
             </div>
 
             <div className="flex items-center justify-center">
-              <Link href="/blog" className="text-[#1D1E20] font-bold p-2 text-center text-[13px] px-6 cursor-pointer text-uppercase rounded-full bg-[#F5F5F5] hover:bg-gray-200 transition-colors">
+              <Link
+                href="/blog"
+                className="text-[#1D1E20] font-bold p-2 text-center text-[13px] px-6 cursor-pointer text-uppercase rounded-full bg-[#F5F5F5] hover:bg-gray-200 transition-colors"
+              >
                 Browse All
               </Link>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full">
-            {blogData.map((blog, index) => (
-              <Link
-                href={`/blog/${index + 1}`}
-                key={index}
-                className="flex flex-col items-start justify-start gap-3 w-full group "
-              >
-                <div className="w-full h-[240px] rounded-[24px] overflow-hidden">
-                  <img
-                    src={blog.iamge}
-                    alt="blog"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <h2 className="text-start text-lg md:text-[18px] font-bold group-hover:text-[#008867] transition-colors">
-                    {blog.title}
-                  </h2>
-                  <p className="text-start text-[#545454] text-sm md:text-base">
-                    {cutString(blog.description, 80)}
-                  </p>
-                </div>
-              </Link>
-            ))}
+            {loading
+              ? [1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="flex flex-col gap-3 w-full animate-pulse"
+                  >
+                    <div className="w-full h-[240px] rounded-[24px] bg-gray-200" />
+                    <div className="h-6 bg-gray-200 rounded w-3/4" />
+                    <div className="h-4 bg-gray-200 rounded w-full" />
+                  </div>
+                ))
+              : blogs.map((blog) => {
+                  const description =
+                    blog.content?.find((c) => c.type === "paragraph")?.words ||
+                    "";
+
+                  return (
+                    <Link
+                      href={`/blog/${blog.id}`}
+                      key={blog.id}
+                      className="flex flex-col items-start justify-start gap-3 w-full group "
+                    >
+                      <div className="w-full h-[240px] rounded-[24px] overflow-hidden">
+                        <img
+                          src={blog.imageUrl || "/image/blog.png"}
+                          alt={blog.mainTitle}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <h2 className="text-start text-lg md:text-[18px] font-bold group-hover:text-[#008867] transition-colors line-clamp-2">
+                          {blog.mainTitle}
+                        </h2>
+                        <p className="text-start text-[#545454] text-sm md:text-base line-clamp-2">
+                          {cutString(description, 80)}
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                })}
           </div>
+
+          {!loading && blogs.length === 0 && (
+            <p className="text-[#5F6973] text-lg">Coming soon...</p>
+          )}
         </div>
       </Container>
     </section>

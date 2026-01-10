@@ -14,8 +14,7 @@ export async function addBlog(data) {
         mainTitle: data.mainTitle,
         category: data.category,
         imageUrl: data.imageUrl,
-        paragraphs: data.paragraphs || [],
-        secondaryTitle: data.secondaryTitle || [],
+        content: data.content || [],
       },
     });
     return { success: true, blog: newBlog };
@@ -109,8 +108,7 @@ export async function updateBlog(id, data) {
         mainTitle: data.mainTitle,
         category: data.category,
         imageUrl: data.imageUrl,
-        paragraphs: data.paragraphs || [],
-        secondaryTitle: data.secondaryTitle || [],
+        content: data.content || [],
       },
     });
     return { success: true, blog: updatedBlog };

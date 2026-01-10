@@ -1,57 +1,32 @@
 "use client";
+import { useState, useEffect } from "react";
 import { Container } from "@/components/container";
 import SplitText from "@/assist/text";
 import { motion } from "motion/react";
-import Bottom from "@/sections/homePageSections/buttom";
 import Link from "next/link";
 import Footer from "@/components/footer";
+import { getAllBlogs } from "@/app/dashboard/actions/blog.action";
 
 export default function Blog() {
-  const blogPosts = [
-    {
-      title: "Introducing the Webflow Boosters App",
-      description:
-        "Advanced code solutions added directly inside of Webflow at the click of a button.",
-      image: "/image/blog.png",
-      tag: "Product",
-    },
-    {
-      title: "Top 20 UI Inspiration Sites (2023)",
-      description:
-        "We've collated the top 20 UI inspiration sites, all with links in one handy spot! Find your inspiration for your next project.",
-      image: "/image/blog.png",
-      tag: "Design",
-    },
-    {
-      title: "How to add a countdown timer to Framer",
-      description:
-        "Learn how to add a beautiful countdown to your Framer project. Add it to your project in seconds.",
-      image: "/image/blog.png",
-      tag: "Tutorial",
-    },
-    {
-      title: "Introducing the Webflow Boosters App",
-      description:
-        "Advanced code solutions added directly inside of Webflow at the click of a button.",
-      image: "/image/blog.png",
-      tag: "Product",
-    },
-    {
-      title: "Top 20 UI Inspiration Sites (2023)",
-      description:
-        "We've collated the top 20 UI inspiration sites, all with links in one handy spot! Find your inspiration for your next project.",
-      image: "/image/blog.png",
-      tag: "Design",
-    },
-    {
-      title: "How to add a countdown timer to Framer",
-      description:
-        "Learn how to add a beautiful countdown to your Framer project. Add it to your project in seconds.",
-      image: "/image/blog.png",
-      tag: "Tutorial",
-    },
-  ];
-  // خلقية متدرجة
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const result = await getAllBlogs({ page: 1, limit: 12 });
+        if (result.success) {
+          setBlogs(result.blogs);
+        }
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
   return (
     <div className="flex relative pt-[120px] overflow-hidden min-h-screen items-center flex-col justify-start bg-gradient-to-r from-[#f6fffd] to-[#dfdfdf] font-sans">
       <Container className="mb-20">
@@ -91,40 +66,78 @@ export default function Blog() {
           </div>
 
           {/* Grid Section */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-            {blogPosts.map((post, index) => (
-              <Link href={`/blog/${index}`} key={index} className="contents">
-                <motion.div
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.1,
-                    ease: "easeOut",
-                  }}
-                  className="flex flex-col gap-4 group cursor-pointer"
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div
+                  key={i}
+                  className="flex flex-col gap-4 w-full animate-pulse"
                 >
-                  <div className="w-full h-[240px] rounded-2xl overflow-hidden relative">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-300" />
-                  </div>
+                  <div className="w-full h-[240px] rounded-2xl bg-gray-200" />
                   <div className="flex flex-col gap-2">
-                    <h3 className="text-[#1D1E20] text-xl font-bold leading-snug group-hover:text-[#008867] transition-colors">
-                      {post.title}
-                    </h3>
-                    <p className="text-[#5F6973] text-sm leading-relaxed">
-                      {post.description}
-                    </p>
+                    <div className="h-6 bg-gray-200 rounded w-3/4" />
+                    <div className="h-4 bg-gray-200 rounded w-full" />
+                    <div className="h-4 bg-gray-200 rounded w-5/6" />
                   </div>
-                </motion.div>
-              </Link>
-            ))}
-          </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+              {blogs.map((post, index) => {
+                // Find the first paragraph to use as description
+                const description =
+                  post.content?.find((c) => c.type === "paragraph")?.words ||
+                  "";
+
+                return (
+                  <Link
+                    href={`/blog/${post.id}`}
+                    key={post.id}
+                    className="contents"
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, y: 40 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{
+                        duration: 0.5,
+                        delay: index * 0.1,
+                        ease: "easeOut",
+                      }}
+                      className="flex flex-col gap-4 group cursor-pointer"
+                    >
+                      <div className="w-full h-[240px] rounded-2xl overflow-hidden relative">
+                        <img
+                          src={post.imageUrl || "/image/blog.png"}
+                          alt={post.mainTitle}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-300" />
+                        <div className="absolute top-4 left-4">
+                          <span className="px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-[#008867] text-xs font-bold uppercase tracking-wider">
+                            {post.category}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <h3 className="text-[#1D1E20] text-xl font-bold leading-snug group-hover:text-[#008867] transition-colors line-clamp-2">
+                          {post.mainTitle}
+                        </h3>
+                        <p className="text-[#5F6973] text-sm leading-relaxed line-clamp-3">
+                          {description}
+                        </p>
+                      </div>
+                    </motion.div>
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
+          {!loading && blogs.length === 0 && (
+            <div className="text-[#5F6973] text-lg">No blogs found yet.</div>
+          )}
         </div>
       </Container>
 

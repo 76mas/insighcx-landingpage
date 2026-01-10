@@ -12,6 +12,8 @@ import {
   Input,
   message,
   Popconfirm,
+  Select,
+  InputNumber,
 } from "antd";
 import {
   PlusOutlined,
@@ -122,8 +124,7 @@ export default function BlogsPage() {
       mainTitle: blog.mainTitle,
       category: blog.category,
       imageUrl: blog.imageUrl,
-      secondaryTitle: blog.secondaryTitle,
-      paragraphs: blog.paragraphs,
+      content: blog.content || [],
     });
   };
 
@@ -303,77 +304,54 @@ export default function BlogsPage() {
             <Input placeholder="Enter image URL" />
           </Form.Item>
 
-          {/* Dynamic Secondary Titles */}
-          <Form.List name="secondaryTitle">
+          <Form.List name="content">
             {(fields, { add, remove }) => (
               <>
                 <div style={{ marginBottom: "8px", fontWeight: 500 }}>
-                  Secondary Titles
+                  Blog Content (Ordered by Priority)
                 </div>
                 {fields.map(({ key, name, ...restField }) => (
                   <Space
                     key={key}
-                    style={{ display: "flex", marginBottom: 8 }}
+                    style={{ display: "flex", marginBottom: 8 ,alignItems :"center"}}
                     align="baseline"
                   >
                     <Form.Item
                       {...restField}
-                      name={name}
-                      rules={[
-                        {
-                          required: true,
-                          message: "Please enter secondary title",
-                        },
-                      ]}
-                      style={{ marginBottom: 0, flex: 1 }}
+                      name={[name, "type"]}
+                      rules={[{ required: true, message: "Type" }]}
+                      style={{ width: "120px", marginBottom: 0 }}
                     >
-                      <Input
-                        placeholder="Secondary title"
-                        style={{ width: "550px" }}
-                      />
+                      <Select placeholder="Type">
+                        <Select.Option value="title">Title</Select.Option>
+                        <Select.Option value="paragraph">
+                          Paragraph
+                        </Select.Option>
+                      </Select>
                     </Form.Item>
-                    <MinusCircleOutlined onClick={() => remove(name)} />
-                  </Space>
-                ))}
-                <Form.Item>
-                  <Button
-                    type="dashed"
-                    onClick={() => add()}
-                    block
-                    icon={<PlusOutlined />}
-                  >
-                    Add Secondary Title
-                  </Button>
-                </Form.Item>
-              </>
-            )}
-          </Form.List>
-
-          {/* Dynamic Paragraphs */}
-          <Form.List name="paragraphs">
-            {(fields, { add, remove }) => (
-              <>
-                <div style={{ marginBottom: "8px", fontWeight: 500 }}>
-                  Paragraphs
-                </div>
-                {fields.map(({ key, name, ...restField }) => (
-                  <Space
-                    key={key}
-                    style={{ display: "flex", marginBottom: 8 }}
-                    align="baseline"
-                  >
                     <Form.Item
                       {...restField}
-                      name={name}
+                      name={[name, "words"]}
                       rules={[
-                        { required: true, message: "Please enter paragraph" },
+                        { required: true, message: "Please enter content" },
                       ]}
-                      style={{ marginBottom: 0, flex: 1 }}
+                      style={{ width: "400px", marginBottom: 0 }}
                     >
                       <Input.TextArea
-                        placeholder="Paragraph content"
-                        rows={2}
-                        style={{ width: "550px" }}
+                        placeholder="Content (Title or Paragraph)"
+                        autoSize={{ minRows: 1, maxRows: 6 }}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      {...restField}
+                      name={[name, "priority"]}
+                      rules={[{ required: true, message: "Priority" }]}
+                      style={{ width: "80px", marginBottom: 0 }}
+                    >
+                      <InputNumber
+                        placeholder="Prio"
+                        min={1}
+                        style={{ width: "100%" }}
                       />
                     </Form.Item>
                     <MinusCircleOutlined onClick={() => remove(name)} />
@@ -382,11 +360,17 @@ export default function BlogsPage() {
                 <Form.Item>
                   <Button
                     type="dashed"
-                    onClick={() => add()}
+                    onClick={() =>
+                      add({
+                        type: "paragraph",
+                        words: "",
+                        priority: fields.length + 1,
+                      })
+                    }
                     block
                     icon={<PlusOutlined />}
                   >
-                    Add Paragraph
+                    Add Content Block
                   </Button>
                 </Form.Item>
               </>
