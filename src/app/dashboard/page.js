@@ -64,8 +64,9 @@ const DashboardPage = () => {
       key: "mainTitle",
       render: (text, record) => (
         <a
-          onClick={() => router.push(`/dashboard/blogs/${record.id}`)}
-          style={{ color: "#1890ff", cursor: "pointer" }}
+          onClick={() => router.push(`blog/${record.id}`)}
+          // colore green
+          style={{ color: "cyan", cursor: "pointer" }}
         >
           {text}
         </a>
@@ -75,7 +76,7 @@ const DashboardPage = () => {
       title: "Category",
       dataIndex: "category",
       key: "category",
-      render: (category) => <Tag color="blue">{category}</Tag>,
+      render: (category) => <Tag color="cyan">{category}</Tag>,
     },
     {
       title: "Created At",
@@ -127,7 +128,7 @@ const DashboardPage = () => {
           minHeight: "400px",
         }}
       >
-        <Spin size="large" tip="Loading dashboard data..." />
+        <Spin size="large" />
       </div>
     );
   }
@@ -158,7 +159,7 @@ const DashboardPage = () => {
               title="Total Blogs"
               value={data.stats.totalBlogs}
               prefix={<FileTextOutlined />}
-              valueStyle={{ color: "#3f8600" }}
+              styles={{ content: { color: "#3f8600" } }}
             />
           </Card>
         </Col>
@@ -168,7 +169,7 @@ const DashboardPage = () => {
               title="Total Messages"
               value={data.stats.totalMessages}
               prefix={<MessageOutlined />}
-              valueStyle={{ color: "#1890ff" }}
+              styles={{ content: { color: "#1890ff" } }}
             />
           </Card>
         </Col>
@@ -178,7 +179,7 @@ const DashboardPage = () => {
               title="Unread Messages"
               value={data.stats.unreadMessages}
               prefix={<MailOutlined />}
-              valueStyle={{ color: "#cf1322" }}
+              styles={{ content: { color: "#cf1322" } }}
             />
           </Card>
         </Col>
@@ -211,7 +212,7 @@ const DashboardPage = () => {
         title="Recent Messages"
         extra={
           <a
-            onClick={() => router.push("/dashboard/massge")}
+            onClick={() => router.push("/dashboard/messages")}
             style={{ cursor: "pointer" }}
           >
             View All

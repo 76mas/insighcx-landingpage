@@ -26,7 +26,7 @@ export default function Header() {
       pathname === "/dashboard/login" ||
       pathname === "/dashboard" ||
       pathname === "/dashboard/blogs" ||
-      pathname === "/dashboard/massge"
+      pathname === "/dashboard/messages"
     ) {
       setDisplay(false);
     } else {

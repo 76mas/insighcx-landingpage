@@ -9,11 +9,15 @@ export async function addBlog(data) {
     if (!adminId) {
       throw new Error("Unauthorized: Authentication required");
     }
+
+    console.log("dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", data);
+
+    // return;
     const newBlog = await prisma.blog.create({
       data: {
         mainTitle: data.mainTitle,
         category: data.category,
-        imageUrl: data.imageUrl,
+        imageUrl: data.imageUrl.file.response,
         content: data.content || [],
       },
     });
@@ -107,7 +111,7 @@ export async function updateBlog(id, data) {
       data: {
         mainTitle: data.mainTitle,
         category: data.category,
-        imageUrl: data.imageUrl,
+        imageUrl: data.imageUrl.file.response,
         content: data.content || [],
       },
     });

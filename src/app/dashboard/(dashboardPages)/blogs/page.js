@@ -14,6 +14,7 @@ import {
   Popconfirm,
   Select,
   InputNumber,
+  Upload,
 } from "antd";
 import {
   PlusOutlined,
@@ -23,6 +24,7 @@ import {
   MinusCircleOutlined,
   EditOutlined,
   ReloadOutlined,
+  UploadOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import {
@@ -31,6 +33,7 @@ import {
   updateBlog,
   deleteBlog,
 } from "../../actions/blog.action";
+import { uploadImage } from "../../actions/upload.action";
 
 export default function BlogsPage() {
   const router = useRouter();
@@ -42,6 +45,7 @@ export default function BlogsPage() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editingBlog, setEditingBlog] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [fileList, setFileList] = useState([]);
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -115,7 +119,6 @@ export default function BlogsPage() {
     }
   };
 
-  // Open Edit Modal
   const openEditModal = (blog) => {
     setEditingBlog(blog);
     setIsEditMode(true);
@@ -126,6 +129,19 @@ export default function BlogsPage() {
       imageUrl: blog.imageUrl,
       content: blog.content || [],
     });
+
+    if (blog.imageUrl) {
+      setFileList([
+        {
+          uid: "-1",
+          name: "image.png",
+          status: "done",
+          url: blog.imageUrl,
+        },
+      ]);
+    } else {
+      setFileList([]);
+    }
   };
 
   // Handle Delete Blog
@@ -150,14 +166,18 @@ export default function BlogsPage() {
       key: "imageUrl",
       width: 100,
       render: (imageUrl) => (
-        <Image
-          src={imageUrl}
-          alt="Blog thumbnail"
-          width={60}
-          height={60}
-          style={{ objectFit: "cover", borderRadius: "4px" }}
-          fallback="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
-        />
+        console.log("imageUrl", imageUrl),
+        (
+          // add base url to imageUrl
+          <Image
+            src={imageUrl}
+            alt="Blog thumbnail"
+            width={60}
+            height={60}
+            style={{ objectFit: "cover", borderRadius: "4px" }}
+            fallback="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
+          />
+        )
       ),
     },
     {
@@ -173,7 +193,7 @@ export default function BlogsPage() {
       key: "category",
       width: 120,
       render: (category) => (
-        <Tag color="blue" icon={<FolderOutlined />}>
+        <Tag color="cyan" icon={<FolderOutlined />}>
           {category}
         </Tag>
       ),
@@ -236,7 +256,10 @@ export default function BlogsPage() {
             type="primary"
             icon={<PlusOutlined />}
             size="large"
-            onClick={() => setIsModalVisible(true)}
+            onClick={() => {
+              setIsModalVisible(true);
+              setFileList([]);
+            }}
           >
             Add Blog
           </Button>
@@ -266,6 +289,7 @@ export default function BlogsPage() {
             setIsModalVisible(false);
             setIsEditMode(false);
             setEditingBlog(null);
+            setFileList([]);
             form.resetFields();
           }
         }}
@@ -298,10 +322,43 @@ export default function BlogsPage() {
 
           <Form.Item
             name="imageUrl"
-            label="Image URL"
-            rules={[{ required: true, message: "Please enter the image URL" }]}
+            label="Blog Image"
+            rules={[{ required: true, message: "Please upload an image" }]}
           >
-            <Input placeholder="Enter image URL" />
+            <Upload
+              listType="picture-card"
+              fileList={fileList}
+              maxCount={1}
+              onPreview={(file) => {
+                const url = file.url || file.thumbUrl;
+                window.open(url, "_blank");
+              }}
+              onChange={({ fileList: newFileList }) => setFileList(newFileList)}
+              customRequest={async ({ file, onSuccess, onError }) => {
+                const formData = new FormData();
+                formData.append("file", file);
+                try {
+                  const result = await uploadImage(formData);
+                  if (result.success) {
+                    form.setFieldsValue({ imageUrl: result.url });
+                    onSuccess(result.url);
+                  } else {
+                    message.error(result.error);
+                    onError(result.error);
+                  }
+                } catch (err) {
+                  message.error("Upload failed");
+                  onError(err);
+                }
+              }}
+            >
+              {fileList.length < 1 && (
+                <div>
+                  <UploadOutlined />
+                  <div style={{ marginTop: 8 }}>Upload</div>
+                </div>
+              )}
+            </Upload>
           </Form.Item>
 
           <Form.List name="content">
@@ -313,7 +370,11 @@ export default function BlogsPage() {
                 {fields.map(({ key, name, ...restField }) => (
                   <Space
                     key={key}
-                    style={{ display: "flex", marginBottom: 8 ,alignItems :"center"}}
+                    style={{
+                      display: "flex",
+                      marginBottom: 8,
+                      alignItems: "center",
+                    }}
                     align="baseline"
                   >
                     <Form.Item
@@ -388,6 +449,7 @@ export default function BlogsPage() {
                   setIsModalVisible(false);
                   setIsEditMode(false);
                   setEditingBlog(null);
+                  setFileList([]);
                   form.resetFields();
                 }}
               >

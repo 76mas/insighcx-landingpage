@@ -217,7 +217,7 @@ export default function MessagesPage() {
       </h1>
 
       <Card style={{ marginBottom: "16px" }}>
-        <Space direction="vertical" style={{ width: "100%" }}>
+        <Space orientation="vertical" style={{ width: "100%" }}>
           <div
             style={{
               display: "flex",

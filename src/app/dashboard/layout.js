@@ -77,7 +77,7 @@ function DashboardLayoutContent({ children }) {
       label: "Blogs",
     },
     {
-      key: "/dashboard/massge",
+      key: "/dashboard/messages",
       icon: <MessageOutlined />,
       label: "Messages",
     },
