@@ -68,10 +68,10 @@ export default function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-sm font-medium transition-colors duration-200 ${
+                  className={`text-sm font-medium px-2 py-1 rounded-full transition-all duration-300 backdrop-blur-sm ${
                     isActive
-                      ? "text-[#008867]"
-                      : "text-gray-500 hover:text-[#008867]"
+                      ? "text-[#008867] "
+                      : "text-gray-500 hover:text-[#008867] "
                   }`}
                 >
                   {link.name}
@@ -84,7 +84,7 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <Link
               href="/contact"
-              className="hidden md:inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white bg-[#008867] rounded-[10px] hover:bg-[#00796b] transition-all duration-200 shadow-md hover:shadow-lg"
+              className="hidden  md:inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white bg-[#008867] rounded-[10px] hover:bg-[#00796b] transition-all duration-200 shadow-md hover:shadow-lg"
             >
               Contact Us
             </Link>
@@ -103,7 +103,7 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 bg-white z-40 transition-transform duration-300 md:hidden flex justify-center  flex-col pt-[80px] ${
+        className={`fixed inset-0 bg-white/80 backdrop-blur-xl z-40 transition-transform duration-300 md:hidden flex justify-center  flex-col pt-[80px] ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -115,10 +115,10 @@ export default function Header() {
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className={`text-xl font-medium transition-colors ${
+                className={`text-xl font-medium px-8 py-3 rounded-xl backdrop-blur-md border transition-all duration-300 w-full text-center ${
                   isActive
-                    ? "text-[#008867]"
-                    : "text-gray-600 hover:text-[#008867]"
+                    ? "bg-[#008867]/10 text-[#008867] border-[#008867]/20"
+                    : "bg-gray-50/50 text-gray-600 border-gray-100 hover:bg-[#008867]/5 hover:text-[#008867] hover:border-[#008867]/20"
                 }`}
               >
                 {link.name}
@@ -128,7 +128,7 @@ export default function Header() {
           <Link
             href="/contact"
             onClick={() => setIsOpen(false)}
-            className=" text-lg md:inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white bg-[#008867] rounded-[10px] hover:bg-[#00796b] transition-all duration-200 shadow-md hover:shadow-lg"
+            className="w-full text-center text-lg inline-flex items-center justify-center px-6 py-3 font-medium text-white bg-[#008867] rounded-xl hover:bg-[#00796b] transition-all duration-200 shadow-md hover:shadow-lg"
           >
             Contact Us
           </Link>
