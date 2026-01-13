@@ -1,6 +1,8 @@
 "use server";
 import { getAuthenticatedAdminId } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import fs from "fs/promises";
+import path from "path";
 
 // Add a new blog
 export async function addBlog(data) {
@@ -129,9 +131,32 @@ export async function deleteBlog(id) {
     throw new Error("Unauthorized: Authentication required");
   }
   try {
+    // 1. Get the blog to find the imageUrl
+    const blog = await prisma.blog.findUnique({
+      where: { id },
+    });
+
+    if (!blog) {
+      return { success: false, error: "Blog not found" };
+    }
+
+    // 2. Delete the blog from database
     const deletedBlog = await prisma.blog.delete({
       where: { id },
     });
+
+    // 3. Delete the image from the folder
+    if (blog.imageUrl) {
+      try {
+        const filePath = path.join(process.cwd(), "public", blog.imageUrl);
+        await fs.unlink(filePath);
+        console.log("Deleted image:", filePath);
+      } catch (fileError) {
+        console.error("Error deleting image file:", fileError);
+        // We don't fail the action if file deletion fails but DB deletion succeeded
+      }
+    }
+
     return { success: true, blog: deletedBlog };
   } catch (error) {
     console.error("Error deleting blog:", error);

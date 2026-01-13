@@ -38,18 +38,34 @@ const Footer = ({ className }) => {
                 SOCIAL MEDIA
               </h3>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer">
+                <a
+                  href="https://www.instagram.com/insightx/"
+                  target="_blank"
+                  className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer"
+                >
                   <FaInstagram size={18} />
-                </div>
-                <div className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer">
+                </a>
+                <a
+                  href="https://twitter.com/insightx"
+                  target="_blank"
+                  className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer"
+                >
                   <FaXTwitter size={18} />
-                </div>
-                <div className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer">
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/insightx/"
+                  target="_blank"
+                  className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer"
+                >
                   <FaLinkedinIn size={18} />
-                </div>
-                <div className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer">
+                </a>
+                <a
+                  href="https://t.me/insightx"
+                  target="_blank"
+                  className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer"
+                >
                   <FaTelegram size={18} />
-                </div>
+                </a>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Container } from "@/components/container";
+import cutString from "@/lib/sherdfounction";
 import SplitText from "@/assist/text";
 import { motion } from "motion/react";
 import Link from "next/link";
@@ -125,7 +126,7 @@ export default function Blog() {
                           {post.mainTitle}
                         </h3>
                         <p className="text-[#5F6973] text-sm leading-relaxed line-clamp-3">
-                          {description}
+                          {cutString(description, 40)}
                         </p>
                       </div>
                     </motion.div>

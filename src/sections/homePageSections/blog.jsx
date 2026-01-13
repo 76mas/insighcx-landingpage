@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import cutString from "@/lib/sherdfounction";
 import { Container } from "@/components/container";
 import Link from "next/link";
 import { getAllBlogs } from "@/app/dashboard/actions/blog.action";
@@ -25,13 +26,7 @@ export default function Blog() {
     fetchTopBlogs();
   }, []);
 
-  const cutString = (string, length) => {
-    if (!string) return "";
-    if (string.length > length) {
-      return string.substring(0, length) + "...";
-    }
-    return string;
-  };
+
 
   return (
     <section className="w-full relative z-0 min-h-screen flex  justify-center py-12 lg:py-20 ">
@@ -94,7 +89,7 @@ export default function Blog() {
                           {blog.mainTitle}
                         </h2>
                         <p className="text-start text-[#545454] text-sm md:text-base line-clamp-2">
-                          {cutString(description, 80)}
+                          {cutString(description, 40)}
                         </p>
                       </div>
                     </Link>

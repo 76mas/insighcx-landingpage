@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import SplitText from "@/assist/text";
 import { Container } from "@/components/container";
 import Header from "@/components/header";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -88,12 +89,12 @@ export default function Hero() {
                 }}
                 className="flex gap-3"
               >
-                <button className="text-[#ffffff] bg-[#008867] cursor-pointer px-5 py-3 rounded-[12px] hover:bg-[#006f54] transition-colors">
+                <Link href="/contact" className="text-[#ffffff] bg-[#008867] cursor-pointer px-5 py-3 rounded-[12px] hover:bg-[#006f54] transition-colors">
                   Contact Us
-                </button>
-                <button className="text-[#000000] bg-[#ffffff] cursor-pointer border-[#cdd3db] border px-5 py-3 rounded-[12px] hover:bg-gray-100 transition-colors">
+                </Link>
+                <Link href="/services" className="text-[#000000] bg-[#ffffff] cursor-pointer border-[#cdd3db] border px-5 py-3 rounded-[12px] hover:bg-gray-100 transition-colors">
                   Services
-                </button>
+                </Link>
               </motion.div>
             </div>
           </div>
