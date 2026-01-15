@@ -26,8 +26,6 @@ export default function Blog() {
     fetchTopBlogs();
   }, []);
 
-
-
   return (
     <section className="w-full relative z-0 min-h-screen flex  justify-center py-12 lg:py-20 ">
       <div className="absolute -bottom-[40%] -right-[20%] w-[950px] h-[950px] rounded-full bg-green-100 blur-[120px] opacity-50 pointer-events-none -z-10" />
@@ -79,7 +77,10 @@ export default function Blog() {
                     >
                       <div className="w-full h-[240px] rounded-[24px] overflow-hidden">
                         <img
-                          src={blog.imageUrl || "/image/blog.png"}
+                          src={
+                            "https://insight-x.info" + blog.imageUrl ||
+                            "/image/blog.png"
+                          }
                           alt={blog.mainTitle}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />

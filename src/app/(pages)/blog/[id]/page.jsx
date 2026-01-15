@@ -92,7 +92,7 @@ export default function BlogDetail({ params }) {
             className="w-full max-w-5xl h-[300px] md:h-[500px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-sm"
           >
             <img
-              src={blog.imageUrl || "/image/blog.png"}
+              src={"https://insight-x.info" + blog.imageUrl || "/image/blog.png"}
               alt={blog.mainTitle}
               className="w-full h-full object-cover"
             />

@@ -16,6 +16,8 @@ export default function Blog() {
     const fetchBlogs = async () => {
       try {
         const result = await getAllBlogs({ page: 1, limit: 12 });
+
+        console.log("result", result);
         if (result.success) {
           setBlogs(result.blogs);
         }
@@ -110,7 +112,10 @@ export default function Blog() {
                     >
                       <div className="w-full h-[240px] rounded-2xl overflow-hidden relative">
                         <img
-                          src={post.imageUrl || "/image/blog.png"}
+                          src={
+                            "https://insight-x.info" + post.imageUrl ||
+                            "/image/blog.png"
+                          }
                           alt={post.mainTitle}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
