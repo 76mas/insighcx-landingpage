@@ -170,7 +170,7 @@ export default function BlogsPage() {
         (
           // add base url to imageUrl
           <Image
-            src={imageUrl}
+            src={"https://insight-x.info" + imageUrl}
             alt="Blog thumbnail"
             width={60}
             height={60}
