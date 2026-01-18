@@ -45,7 +45,7 @@ export default function Header() {
   return (
     <header
       style={{ display: display ? "flex" : "none" }}
-      className="fixed top-0 left-0 w-full z-50    flex justify-center  "
+      className="fixed top-0 left-0 w-full z-50   h-[80px]flex justify-center  "
     >
       <Container>
         <div className="relative z-50 flex items-center justify-between py-2 md:py-3">

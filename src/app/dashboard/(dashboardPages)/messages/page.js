@@ -76,7 +76,7 @@ export default function MessagesPage() {
       if (result.success) {
         message.success("Message marked as read");
         setMessages(
-          messages.map((msg) => (msg.id === id ? { ...msg, read: true } : msg))
+          messages.map((msg) => (msg.id === id ? { ...msg, read: true } : msg)),
         );
       } else {
         message.error(result.error || "Failed to mark as read");
@@ -162,7 +162,7 @@ export default function MessagesPage() {
       key: "read",
       render: (read) => (
         <Badge
-          status={read ? "success" : "processing"}
+          status={read ? "success" : "warning"}
           text={read ? "Read" : "Unread"}
         />
       ),
@@ -211,7 +211,12 @@ export default function MessagesPage() {
   return (
     <div>
       <h1
-        style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "24px" }}
+        style={{
+          fontSize: "24px",
+          fontWeight: "bold",
+          marginBottom: "24px",
+          color: "#008867",
+        }}
       >
         Messages Management
       </h1>

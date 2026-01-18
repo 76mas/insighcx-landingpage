@@ -108,10 +108,6 @@ function DashboardLayoutContent({ children }) {
         trigger={null}
         collapsible
         collapsed={collapsed}
-        breakpoint="lg"
-        onBreakpoint={(broken) => {
-          if (broken) setCollapsed(true);
-        }}
         style={{
           overflow: "auto",
           height: "100vh",
@@ -119,6 +115,8 @@ function DashboardLayoutContent({ children }) {
           left: 0,
           top: 0,
           bottom: 0,
+          // green dark
+          background: "#141414",
         }}
       >
         <div
@@ -131,6 +129,7 @@ function DashboardLayoutContent({ children }) {
             fontSize: collapsed ? "18px" : "20px",
             fontWeight: "bold",
             borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+            color: "#008867",
           }}
         >
           {collapsed ? "AD" : "Admin Dashboard"}
@@ -141,7 +140,11 @@ function DashboardLayoutContent({ children }) {
           selectedKeys={[getSelectedKey()]}
           items={menuItems}
           onClick={handleMenuClick}
-          style={{ marginTop: "16px" }}
+          style={{
+            marginTop: "16px",
+            background: "transparent",
+            transition: "all 0.2s",
+          }}
         />
       </Sider>
       <Layout
@@ -155,6 +158,7 @@ function DashboardLayoutContent({ children }) {
             alignItems: "center",
             justifyContent: "space-between",
             boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+            borderBottom: "1px solid #141414",
           }}
         >
           <Button
@@ -175,7 +179,10 @@ function DashboardLayoutContent({ children }) {
                 cursor: "pointer",
               }}
             >
-              <Avatar icon={<UserOutlined />} style={{ marginRight: "8px" }} />
+              <Avatar
+                icon={<UserOutlined className="text-white" />}
+                style={{ marginRight: "8px", background: "#008867" }}
+              />
               <span style={{ fontWeight: 500 }}>{getAdminName()}</span>
             </div>
           </Dropdown>
@@ -201,7 +208,13 @@ export default function DashboardLayout({ children }) {
       theme={{
         algorithm: theme.darkAlgorithm,
         token: {
-          colorPrimary: "#1677ff",
+          colorPrimary: "#008867",
+        },
+        components: {
+          Menu: {
+            itemSelectedBg: "#ffffff",
+            itemSelectedColor: "#008867",
+          },
         },
       }}
     >

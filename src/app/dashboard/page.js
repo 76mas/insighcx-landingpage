@@ -143,7 +143,7 @@ const DashboardPage = () => {
           marginBottom: "24px",
         }}
       >
-        <h1 style={{ fontSize: "24px", fontWeight: "bold", margin: 0 }}>
+        <h1 style={{ fontSize: "24px", fontWeight: "bold", margin: 0, color: "#008867" }}>
           Dashboard Overview
         </h1>
         <Button onClick={fetchDashboardData} loading={loading}>
@@ -169,7 +169,7 @@ const DashboardPage = () => {
               title="Total Messages"
               value={data.stats.totalMessages}
               prefix={<MessageOutlined />}
-              styles={{ content: { color: "#1890ff" } }}
+              styles={{ content: { color: "#008867" } }}
             />
           </Card>
         </Col>
@@ -179,7 +179,7 @@ const DashboardPage = () => {
               title="Unread Messages"
               value={data.stats.unreadMessages}
               prefix={<MailOutlined />}
-              styles={{ content: { color: "#cf1322" } }}
+              styles={{ content: { color: "yellow" } }}
             />
           </Card>
         </Col>
@@ -192,7 +192,7 @@ const DashboardPage = () => {
         extra={
           <a
             onClick={() => router.push("/dashboard/blogs")}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", color: "#008867" }}
           >
             View All
           </a>
@@ -213,7 +213,7 @@ const DashboardPage = () => {
         extra={
           <a
             onClick={() => router.push("/dashboard/messages")}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer", color: "#008867" }}
           >
             View All
           </a>

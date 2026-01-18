@@ -241,7 +241,7 @@ export default function BlogsPage() {
           marginBottom: "24px",
         }}
       >
-        <h1 style={{ fontSize: "24px", fontWeight: "bold", margin: 0 }}>
+        <h1 style={{ fontSize: "24px", fontWeight: "bold", margin: 0, color: "#008867" }}>
           Blogs Management
         </h1>
         <Space>
