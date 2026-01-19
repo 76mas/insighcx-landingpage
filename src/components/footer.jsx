@@ -33,34 +33,35 @@ const Footer = ({ className }) => {
                 industries.
               </p>
             </div>
+
             <div className="flex flex-col gap-3">
               <h3 className="text-[#1D1E20] font-bold text-[12px] uppercase tracking-wider">
                 SOCIAL MEDIA
               </h3>
               <div className="flex items-center gap-3">
-                <a
+                {/* <a
                   href="https://www.instagram.com/insightx/"
                   target="_blank"
                   className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer"
                 >
                   <FaInstagram size={18} />
-                </a>
-                <a
+                </a> */}
+                {/* <a
                   href="https://twitter.com/insightx"
                   target="_blank"
                   className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer"
                 >
                   <FaXTwitter size={18} />
-                </a>
+                </a> */}
                 <a
-                  href="https://www.linkedin.com/company/insightx/"
+                  href="https://www.linkedin.com/company/insightx-iraq"
                   target="_blank"
                   className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer"
                 >
                   <FaLinkedinIn size={18} />
                 </a>
                 <a
-                  href="https://t.me/insightx"
+                  href="https://t.me/insightx_iraq"
                   target="_blank"
                   className="w-10 h-10 rounded-full bg-[#F5F5F5] flex items-center justify-center text-[#1D1E20] hover:bg-[#008867] hover:text-white transition-all cursor-pointer"
                 >

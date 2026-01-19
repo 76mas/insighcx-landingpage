@@ -41,7 +41,7 @@ export default function Contact() {
         setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
         antMessage.error(
-          result.error || "Failed to send message. Please try again."
+          result.error || "Failed to send message. Please try again.",
         );
       }
     } catch (error) {
@@ -194,7 +194,7 @@ export default function Contact() {
 
                   <div className="flex flex-col gap-2">
                     <p className="text-lg font-bold text-[#1D1E20]">
-                      team@insightx.info
+                      info@insight-x.info
                     </p>
                     <p className="text-[#5F6973] text-sm leading-relaxed max-w-[200px]">
                       Assistance hours: Saturday - Thursday 8 am to 8 pm EST
