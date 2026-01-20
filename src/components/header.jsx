@@ -45,12 +45,12 @@ export default function Header() {
   return (
     <header
       style={{ display: display ? "flex" : "none" }}
-      className="fixed top-0 left-0 w-full z-50   h-[80px]flex justify-center  "
+      className="fixed top-0 left-0 w-full z-50  md:backdrop-blur-sm h-[60px]flex justify-center  "
     >
       <Container>
         <div className="relative z-50 flex items-center justify-between py-2 md:py-3">
           {/* Logo */}
-          <Link href="/" className="relative w-[100px] h-[60px]">
+          <Link href="/" className="relative w-[100px] h-[50px]">
             <Image
               src="/image/logo.svg"
               alt="InsightX Logo"
