@@ -33,7 +33,7 @@ export default function WorkStep() {
 
   return (
     <section className="w-full relative z-0 min-h-screen flex items-center justify-center py-12 lg:py-20 ">
-      <div className="absolute -bottom-[40%] -left-[20%] w-[950px] h-[950px] rounded-full bg-[#ffd6d6ad] blur-[120px] opacity-50 pointer-events-none -z-10" />
+      {/* <div className="absolute -bottom-[40%] -left-[20%] w-[950px] h-[950px] rounded-full bg-[#ffd6d6ad] blur-[120px] opacity-50 pointer-events-none -z-10" /> */}
 
       <Container>
         <div className="flex flex-col lg:flex-row justify-center w-full items-start gap-10 lg:gap-20">

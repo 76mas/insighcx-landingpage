@@ -57,9 +57,27 @@ export default function HeroService() {
 
   return (
     <section className="w-full relative z-0 h-full min-h-screen py-30  flex items-center justify-center">
-      <div className="absolute -top-[40%] -right-[20%] w-[950px] h-[950px] rounded-full bg-[#FFD6D6] blur-[120px] opacity-50 pointer-events-none -z-10" />
-      <div className="absolute -bottom-[40%] -right-[20%] w-[950px] h-[950px] rounded-full bg-green-100 blur-[120px] opacity-50 pointer-events-none -z-10" />
-      <div className="absolute -top-[40%] -left-[20%] w-[950px] h-[950px] rounded-full bg-green-100 blur-[120px] opacity-50 pointer-events-none -z-10" />
+      <div
+        className="absolute -top-[40%] -right-[20%] w-[950px] h-[950px] rounded-full opacity-50 pointer-events-none -z-10"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(255, 214, 214, 1) 0%, rgba(255, 214, 214, 0) 70%)",
+        }}
+      />
+      <div
+        className="absolute -bottom-[40%] -left-[20%] w-[950px] h-[950px] rounded-full opacity-50 pointer-events-none -z-10"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(220, 252, 231, 1) 0%, rgba(220, 252, 231, 0) 70%)",
+        }}
+      />
+      <div
+        className="absolute -top-[40%] -left-[20%] w-[950px] h-[950px] rounded-full opacity-50 pointer-events-none -z-10"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(220, 252, 231, 1) 0%, rgba(220, 252, 231, 0) 70%)",
+        }}
+      />
 
       {/* Note: Added a light background tint to the section to match the feel, adjust opacity as needed */}
       <Container>

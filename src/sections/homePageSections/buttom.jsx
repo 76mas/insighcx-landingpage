@@ -14,8 +14,15 @@ import {
 const Bottom = () => {
   return (
     <section className="w-full flex-col relative z-0 min-h-screen flex items-center justify-center py-12 lg:py-20 lg:pb-0 pb-0 overflow-hidden">
-      <div className="absolute -bottom-[40%] -left-[20%] w-[950px] h-[950px] rounded-full bg-[#FFD6D6] blur-[120px] opacity-50 pointer-events-none -z-10" />
-
+      {/* <div className="absolute -bottom-[40%] -left-[20%] w-[950px] h-[950px] rounded-full bg-[#FFD6D6] blur-[120px] opacity-50 pointer-events-none -z-10" /> */}
+      <div
+        className="absolute -bottom-[40%] -left-[20%] w-[950px] h-[950px] rounded-full opacity-50 pointer-events-none -z-10"
+        style={{
+          // use this FFD6D6
+          background:
+            "radial-gradient(circle, rgba(255, 214, 214, 1) 0%, rgba(255, 214, 214, 0) 70%)",
+        }}
+      />
       <Container>
         <div className="flex flex-col gap-20 mb-20 w-full">
           {/* Call to Action Card */}
@@ -45,7 +52,7 @@ const Bottom = () => {
         </div>
       </Container>
 
-    <Footer />
+      <Footer />
     </section>
   );
 };

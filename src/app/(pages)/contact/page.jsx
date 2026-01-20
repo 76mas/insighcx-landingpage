@@ -98,6 +98,7 @@ export default function Contact() {
                 <input
                   type="text"
                   name="name"
+                  placeholder="Enter your name..."
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -111,6 +112,7 @@ export default function Contact() {
                 <input
                   type="email"
                   name="email"
+                  placeholder="Enter your email address..."
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -125,6 +127,7 @@ export default function Contact() {
                   type="tel"
                   name="phone"
                   value={formData.phone}
+                  placeholder="Enter your phone number..."
                   onChange={handleChange}
                   className="w-full bg-transparent border-b border-[#CCCCCC] py-2 focus:outline-none focus:border-[#008867] transition-colors"
                 />
@@ -140,6 +143,7 @@ export default function Contact() {
                 rows={1}
                 name="message"
                 value={formData.message}
+                placeholder="Enter your message..."
                 onChange={handleChange}
                 required
                 className="w-full bg-transparent border-b border-[#CCCCCC] py-2 focus:outline-none focus:border-[#008867] transition-colors resize-none"

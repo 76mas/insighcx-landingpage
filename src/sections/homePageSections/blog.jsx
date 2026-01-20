@@ -28,8 +28,13 @@ export default function Blog() {
 
   return (
     <section className="w-full relative z-0 min-h-screen flex  justify-center py-12 lg:py-20 ">
-      <div className="absolute -bottom-[40%] -right-[20%] w-[950px] h-[950px] rounded-full bg-green-100 blur-[120px] opacity-50 pointer-events-none -z-10" />
-
+      <div
+        className="absolute -bottom-[40%] -right-[20%] w-[950px] h-[950px] rounded-full opacity-50 pointer-events-none -z-10"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(220, 252, 231, 1) 0%, rgba(220, 252, 231, 0) 70%)",
+        }}
+      />
       <Container>
         <div className="flex flex-col w-full items-center justify-center gap-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-4 md:gap-0">
