@@ -54,7 +54,7 @@ export default function BlogDetail({ params }) {
 
   // Sort content by priority
   const sortedContent = [...(blog.content || [])].sort(
-    (a, b) => (a.priority || 0) - (b.priority || 0)
+    (a, b) => (a.priority || 0) - (b.priority || 0),
   );
 
   return (
@@ -92,7 +92,9 @@ export default function BlogDetail({ params }) {
             className="w-full max-w-5xl h-[300px] md:h-[500px] lg:h-[600px] rounded-[32px] overflow-hidden shadow-sm"
           >
             <img
-              src={"https://insight-x.info" + blog.imageUrl || "/image/blog.png"}
+              src={
+                "https://insight-x.info" + blog.imageUrl || "/image/blog.png"
+              }
               alt={blog.mainTitle}
               className="w-full h-full object-cover"
             />
@@ -107,7 +109,11 @@ export default function BlogDetail({ params }) {
           >
             {sortedContent.map((block, index) => {
               if (block.type === "paragraph") {
-                return <p key={index}>{block.words}</p>;
+                return (
+                  <p key={index} className="whitespace-pre-wrap">
+                    {block.words}
+                  </p>
+                );
               } else if (block.type === "title") {
                 return (
                   <div

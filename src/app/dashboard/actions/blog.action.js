@@ -113,7 +113,7 @@ export async function updateBlog(id, data) {
       data: {
         mainTitle: data.mainTitle,
         category: data.category,
-        imageUrl: data.imageUrl.file.response,
+        imageUrl: data.imageUrl?.file?.response || data.imageUrl,
         content: data.content || [],
       },
     });
